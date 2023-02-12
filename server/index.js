@@ -1,22 +1,22 @@
 const express = require('express');
-const mongoose = require( 'mongoose')
+const mongoose  = require( 'mongoose')
 const cors = require('cors');
+const app = express();
+const user=require('./routes/user')
+app.use(express.json())
+app.use(cors())
 
-const postsApi = require('./routes/postApi');
 
-
-
-mongoose.set('strictQuery', false);
+mongoose.set('strictQuery', true);
 mongoose.connect('mongodb://127.0.0.1:27017/test')
     .then(()=> console.log(`mongo connected to db`))
     .catch(err => console.error(err.message))
 
 
-const app = express();
-app.use(express.json())
-app.use(cors())
-app.use('/postapi',postsApi)
+app.use('/users',user)
 
 
 
-app.listen(4002 , ()=> console.log(`active on 4002`));
+
+
+app.listen(4000 , ()=> console.log(`active on 4000`));
